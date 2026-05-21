@@ -18,7 +18,7 @@ public class RegexRule implements Rule {
   }
 
   @Override
-  public Optional<String> checkValidity(String data) {
+  public Optional<String> checkStringValidity(String data) {
     if (!data.matches(expression)) {
       if (StringUtils.hasText(userFriendlyError)) {
         return Optional.of(userFriendlyError);

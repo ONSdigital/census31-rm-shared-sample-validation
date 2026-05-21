@@ -8,7 +8,7 @@ import java.util.Optional;
 public class ISODateRule implements Rule {
 
   @Override
-  public Optional<String> checkValidity(String data) {
+  public Optional<String> checkStringValidity(String data) {
     try {
       LocalDate.parse(data);
       return Optional.empty();

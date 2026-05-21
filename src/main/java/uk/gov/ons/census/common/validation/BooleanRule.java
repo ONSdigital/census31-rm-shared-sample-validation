@@ -2,22 +2,17 @@ package uk.gov.ons.census.common.validation;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.Optional;
-import org.springframework.util.StringUtils;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class MandatoryRule implements Rule {
+public class BooleanRule implements Rule {
+  // Booleans are represented as "1" or "0" in string form (e.g. in CSV files), or as a boolean
+  // types once ingested
 
   @Override
   public Optional<String> checkStringValidity(String data) {
-    if (!StringUtils.hasText(data)) {
-      return Optional.of("Mandatory value missing");
+    if (!"1".equals(data) && !"0".equals(data)) {
+      return Optional.of("Not a valid string boolean value (expected \"1\" or \"0\")");
     }
-
-    return Optional.empty();
-  }
-
-  @Override
-  public Optional<String> checkIntegerValidity(Integer data) {
     return Optional.empty();
   }
 
@@ -29,13 +24,5 @@ public class MandatoryRule implements Rule {
   @Override
   public Optional<String> checkValidity(boolean data) {
     return Optional.empty();
-  }
-
-  @Override
-  public Optional<String> checkValidity(Object data) {
-    if (data == null) {
-      return Optional.of("Mandatory value missing");
-    }
-    return Rule.super.checkValidity(data);
   }
 }

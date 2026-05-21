@@ -1,34 +1,21 @@
 package uk.gov.ons.census.common.validation;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import lombok.Getter;
 
 public class ColumnValidator implements Serializable {
 
-  private final String columnName;
+  @Getter private final String columnName;
 
-  private final boolean sensitive;
-
-  @JsonTypeInfo(
-      use = JsonTypeInfo.Id.CLASS,
-      include = JsonTypeInfo.As.PROPERTY,
-      property = "className")
   private Rule[] rules;
 
-  @JsonCreator
-  public ColumnValidator(
-      @JsonProperty("columnName") String columnName,
-      @JsonProperty("sensitive") boolean sensitive,
-      @JsonProperty("rules") Rule[] rules) {
-    this.columnName = columnName;
-    this.sensitive = sensitive;
+  public ColumnValidator(String columnName, Rule[] rules) {
     this.rules = rules.clone();
+    this.columnName = columnName;
   }
 
   public Optional<String> validateRow(Map<String, String> rowData) {
@@ -41,11 +28,12 @@ public class ColumnValidator implements Serializable {
   }
 
   public Optional<String> validateData(
-      String dataToValidate, boolean excludeDataFromReturnedErrorMsgs) {
+      Object dataToValidate, boolean excludeDataFromReturnedErrorMsgs) {
     List<String> validationErrors = new LinkedList<>();
 
     for (Rule rule : rules) {
-      Optional<String> validationError = rule.checkValidity(dataToValidate);
+      Optional<String> validationError;
+      validationError = rule.checkValidity(dataToValidate);
       if (validationError.isPresent()) {
         if (excludeDataFromReturnedErrorMsgs) {
           validationErrors.add(
@@ -56,11 +44,17 @@ public class ColumnValidator implements Serializable {
                   + "' validation error: "
                   + validationError.get());
         } else {
+          String dataString;
+          if (dataToValidate == null) {
+            dataString = "null";
+          } else {
+            dataString = dataToValidate.toString();
+          }
           validationErrors.add(
               "Column '"
                   + columnName
                   + "' value '"
-                  + dataToValidate
+                  + dataString
                   + "' validation error: "
                   + validationError.get());
         }
@@ -72,14 +66,6 @@ public class ColumnValidator implements Serializable {
     }
 
     return Optional.empty();
-  }
-
-  public String getColumnName() {
-    return columnName;
-  }
-
-  public boolean isSensitive() {
-    return sensitive;
   }
 
   public Rule[] getRules() {

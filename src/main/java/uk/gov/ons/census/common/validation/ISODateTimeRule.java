@@ -8,7 +8,7 @@ import java.util.Optional;
 public class ISODateTimeRule implements Rule {
 
   @Override
-  public Optional<String> checkValidity(String data) {
+  public Optional<String> checkStringValidity(String data) {
     try {
       ZonedDateTime.parse(data);
       return Optional.empty();

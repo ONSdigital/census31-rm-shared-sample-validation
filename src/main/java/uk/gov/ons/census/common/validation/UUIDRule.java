@@ -8,7 +8,7 @@ import java.util.UUID;
 public class UUIDRule implements Rule {
 
   @Override
-  public Optional<String> checkValidity(String data) {
+  public Optional<String> checkStringValidity(String data) {
     try {
       UUID.fromString(data);
       return Optional.empty();

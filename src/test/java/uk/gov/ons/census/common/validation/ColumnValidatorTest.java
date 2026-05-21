@@ -15,7 +15,7 @@ class ColumnValidatorTest {
   @Test
   void validateRowSuccess() {
     InSetRule inSetRule = new InSetRule(new String[] {"foo", "bar"});
-    ColumnValidator underTest = new ColumnValidator("col1", false, new Rule[] {inSetRule});
+    ColumnValidator underTest = new ColumnValidator("col1", new Rule[] {inSetRule});
 
     Map<String, String> dataRow = Map.of("col1", "foo");
     Optional<String> actualValidationResult = underTest.validateRow(dataRow);
@@ -26,7 +26,7 @@ class ColumnValidatorTest {
   @Test
   void validateRowError() {
     InSetRule inSetRule = new InSetRule(new String[] {"foo"});
-    ColumnValidator underTest = new ColumnValidator("col1", false, new Rule[] {inSetRule});
+    ColumnValidator underTest = new ColumnValidator("col1", new Rule[] {inSetRule});
 
     Map<String, String> dataRow = Map.of("col1", "bar");
     Optional<String> actualValidationResult = underTest.validateRow(dataRow);
@@ -37,7 +37,7 @@ class ColumnValidatorTest {
   @Test
   void validateRowWithDateExcludedErrorMsgsSuccess() {
     InSetRule inSetRule = new InSetRule(new String[] {"foo", "bar"});
-    ColumnValidator underTest = new ColumnValidator("col1", false, new Rule[] {inSetRule});
+    ColumnValidator underTest = new ColumnValidator("col1", new Rule[] {inSetRule});
 
     Map<String, String> dataRow = Map.of("col1", "foo");
     Optional<String> actualValidationResult = underTest.validateRow(dataRow, true);
@@ -48,7 +48,7 @@ class ColumnValidatorTest {
   @Test
   void validateRowWithDateExcludedErrorMsgsError() {
     InSetRule inSetRule = new InSetRule(new String[] {"foo"});
-    ColumnValidator underTest = new ColumnValidator("col1", false, new Rule[] {inSetRule});
+    ColumnValidator underTest = new ColumnValidator("col1", new Rule[] {inSetRule});
 
     Map<String, String> dataRow = Map.of("col1", "bar");
     Optional<String> actualValidationResult = underTest.validateRow(dataRow, true);

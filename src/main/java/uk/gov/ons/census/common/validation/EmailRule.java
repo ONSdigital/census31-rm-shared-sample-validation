@@ -51,7 +51,7 @@ public class EmailRule implements Rule {
   }
 
   @Override
-  public Optional<String> checkValidity(String email) {
+  public Optional<String> checkStringValidity(String email) {
 
     if (!this.mandatory && email.isEmpty()) {
       return Optional.empty();

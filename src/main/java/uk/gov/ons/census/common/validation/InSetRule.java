@@ -15,7 +15,7 @@ public class InSetRule implements Rule {
   }
 
   @Override
-  public Optional<String> checkValidity(String data) {
+  public Optional<String> checkStringValidity(String data) {
     if (!set.contains(data)) {
       return Optional.of("Not in set of " + String.join(", ", set));
     }

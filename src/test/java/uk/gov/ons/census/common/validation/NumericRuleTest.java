@@ -36,4 +36,18 @@ class NumericRuleTest {
   void testinvalidNumericStrings(String invalidString) {
     assertThat(numericRule.checkValidity(invalidString)).isPresent();
   }
+
+  @ParameterizedTest
+  @ValueSource(ints = {0, 1, 42, Integer.MAX_VALUE})
+  void testValidNumericIntegers(int validInteger) {
+    assertThat(numericRule.checkValidity(validInteger)).isNotPresent();
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {-1, -42, Integer.MIN_VALUE})
+  void testInvalidNumericIntegers(int invalidInteger) {
+    assertThat(numericRule.checkValidity(invalidInteger))
+        .isPresent()
+        .contains("Negative integers are not allowed");
+  }
 }
