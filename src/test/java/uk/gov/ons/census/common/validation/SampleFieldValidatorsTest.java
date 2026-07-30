@@ -14,7 +14,7 @@ public class SampleFieldValidatorsTest {
   void testSampleFieldValidators() {
     ColumnValidator[] underTest = SampleFieldValidators.getValidators();
 
-    assertThat(underTest).hasSize(27);
+    assertThat(underTest).hasSize(26);
     assertThat(underTest[0].getColumnName()).isEqualTo("UPRN");
     Rule[] uprnRules = underTest[0].getRules();
     assertThat(uprnRules).hasSize(3);
@@ -58,9 +58,8 @@ public class SampleFieldValidatorsTest {
     sampleRow.put("MSOA", "0000");
     sampleRow.put("LAD", "0000");
     sampleRow.put("REGION", "EN");
-    sampleRow.put("TREATMENT_CODE", "HH_LP1E");
-    sampleRow.put("HTC_WILLINGNESS", "0");
-    sampleRow.put("HTC_DIGITAL", "0");
+    sampleRow.put("TREATMENT_CODE", "HH_PSLE");
+    sampleRow.put("HTC", "1");
     sampleRow.put("FIELDCOORDINATOR_ID", "Field");
     sampleRow.put("FIELDOFFICER_ID", "Field");
     sampleRow.put("CE_EXPECTED_CAPACITY", "");
@@ -95,9 +94,8 @@ public class SampleFieldValidatorsTest {
     sampleRow.put("MSOA", "0000");
     sampleRow.put("LAD", "0000");
     sampleRow.put("REGION", "EN");
-    sampleRow.put("TREATMENT_CODE", "HH_LP1E");
-    sampleRow.put("HTC_WILLINGNESS", "0");
-    sampleRow.put("HTC_DIGITAL", "0");
+    sampleRow.put("TREATMENT_CODE", "HH_OBXN");
+    sampleRow.put("HTC", "1");
     sampleRow.put("FIELDCOORDINATOR_ID", "Field");
     sampleRow.put("FIELDOFFICER_ID", "Field");
     sampleRow.put("CE_EXPECTED_CAPACITY", "");
