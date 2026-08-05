@@ -46,7 +46,11 @@ public final class SampleFieldValidators {
       new ColumnValidator("LAD", new Rule[] {new MandatoryRule(), new LengthRule(9)}),
       new ColumnValidator("REGION", new Rule[] {new MandatoryRule(), new LengthRule(9)}),
       new ColumnValidator(
-          "HTC", new Rule[] {new MandatoryRule(), new InSetRule(new String[] {"1", "2", "3"})}),
+          "HTC_WILLINGNESS",
+          new Rule[] {new MandatoryRule(), new InSetRule(new String[] {"1", "2", "3", "4", "5"})}),
+      new ColumnValidator(
+          "HTC_DIGITAL",
+          new Rule[] {new MandatoryRule(), new InSetRule(new String[] {"1", "2", "3", "4", "5"})}),
       new ColumnValidator(
           "FIELDCOORDINATOR_ID", new Rule[] {new MandatoryRule(), new LengthRule(10)}),
       new ColumnValidator("FIELDOFFICER_ID", new Rule[] {new MandatoryRule(), new LengthRule(13)}),
