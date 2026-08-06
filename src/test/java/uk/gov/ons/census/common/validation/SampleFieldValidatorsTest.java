@@ -58,9 +58,9 @@ public class SampleFieldValidatorsTest {
     sampleRow.put("MSOA", "0000");
     sampleRow.put("LAD", "0000");
     sampleRow.put("REGION", "EN");
-    sampleRow.put("TREATMENT_CODE", "HH_LP1E");
-    sampleRow.put("HTC_WILLINGNESS", "0");
-    sampleRow.put("HTC_DIGITAL", "0");
+    sampleRow.put("TREATMENT_CODE", "HH_PSLE");
+    sampleRow.put("HTC_WILLINGNESS", "1");
+    sampleRow.put("HTC_DIGITAL", "1");
     sampleRow.put("FIELDCOORDINATOR_ID", "Field");
     sampleRow.put("FIELDOFFICER_ID", "Field");
     sampleRow.put("CE_EXPECTED_CAPACITY", "");
@@ -95,9 +95,9 @@ public class SampleFieldValidatorsTest {
     sampleRow.put("MSOA", "0000");
     sampleRow.put("LAD", "0000");
     sampleRow.put("REGION", "EN");
-    sampleRow.put("TREATMENT_CODE", "HH_LP1E");
-    sampleRow.put("HTC_WILLINGNESS", "0");
-    sampleRow.put("HTC_DIGITAL", "0");
+    sampleRow.put("TREATMENT_CODE", "HH_OBXN");
+    sampleRow.put("HTC_WILLINGNESS", "1");
+    sampleRow.put("HTC_DIGITAL", "1");
     sampleRow.put("FIELDCOORDINATOR_ID", "Field");
     sampleRow.put("FIELDOFFICER_ID", "Field");
     sampleRow.put("CE_EXPECTED_CAPACITY", "");
