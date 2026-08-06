@@ -37,7 +37,7 @@ public final class SampleFieldValidators {
       new ColumnValidator(
           "CE_EXPECTED_CAPACITY", new Rule[] {new NumericRule(), new LengthRule(4)}),
       new ColumnValidator("CE_SECURE", new Rule[] {new MandatoryRule(), new BooleanRule()}),
-      new ColumnValidator("PRINT_BATCH", new Rule[] {new LengthRule(2)}),
+      new ColumnValidator("PRINT_BATCH", new Rule[] {new NumericRule(), new LengthRule(2)}),
       new ColumnValidator("LATITUDE", new Rule[] {new MandatoryRule()}),
       new ColumnValidator("LONGITUDE", new Rule[] {new MandatoryRule()}),
       new ColumnValidator("OA", new Rule[] {new MandatoryRule(), new LengthRule(9)}),
@@ -61,8 +61,8 @@ public final class SampleFieldValidators {
             new InSetRule(
                 new String[] {
                   "HH_PSCE", "HH_PSLE", "HH_PNCE", "HH_PNLE", "HH_OSCE", "HH_OSLE", "HH_ONCE",
-                  "HH_ONLE", "HH_PSCW", "HH_PSLW", "HH_OSCW", "HH_OSLW", "HH_ONCW", "HH_ONLW",
-                  "HH_OGXS", "HH_OSXS", "HH_PBXN", "HH_OAXN", "HH_OBXN"
+                  "HH_ONLE", "HH_PSCW", "HH_PSLW", "HH_PNCW", "HH_PN", "HH_OSCW", "HH_OSLW",
+                  "HH_ONCW", "HH_ONLW", "HH_OGXS", "HH_OSXS", "HH_PBXN", "HH_OAXN", "HH_OBXN"
                 })
           })
     };
