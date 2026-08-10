@@ -87,9 +87,12 @@ public final class SampleFieldValidators {
                   "HH_ONXE",
                   "HH_ONXW",
                   "HH_PNLW",
+                  "HH_ONXS",
                   // CE
+                  "CE_OUEE",
                   "CE_OUUE",
                   "CE_PUUE",
+                  "CE_PUEE",
                   "CE_OBUE",
                   "CE_PUEW",
                   "CE_PUUW",
@@ -99,7 +102,13 @@ public final class SampleFieldValidators {
                   "CE_OPUW",
                   "CE_OBEW",
                   "CE_OBUW",
-                  "CE_OKEW"
+                  "CE_OKEW",
+                  "CE_OKEE",
+                  "CE_OPEE",
+                  "CE_OPUE",
+                  "CE_OBEE",
+                  "CE_LPUS",
+                  "CE_XXES"
                 })
           })
     };
