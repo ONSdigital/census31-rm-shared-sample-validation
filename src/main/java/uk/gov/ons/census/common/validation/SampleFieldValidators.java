@@ -60,9 +60,46 @@ public final class SampleFieldValidators {
             new MandatoryRule(),
             new InSetRule(
                 new String[] {
-                  "HH_PSCE", "HH_PSLE", "HH_PNCE", "HH_PNLE", "HH_OSCE", "HH_OSLE", "HH_ONCE",
-                  "HH_ONLE", "HH_PSCW", "HH_PSLW", "HH_PNCW", "HH_PN", "HH_OSCW", "HH_OSLW",
-                  "HH_ONCW", "HH_ONLW", "HH_OGXS", "HH_OSXS", "HH_PBXN", "HH_OAXN", "HH_OBXN"
+                  "HH_PSCE",
+                  "HH_PSLE",
+                  "HH_PNCE",
+                  "HH_PNLE",
+                  "HH_OSCE",
+                  "HH_OSLE",
+                  "HH_ONCE",
+                  "HH_ONLE",
+                  "HH_PSCW",
+                  "HH_PSLW",
+                  "HH_PNCW",
+                  "HH_PN",
+                  "HH_OSCW",
+                  "HH_OSLW",
+                  "HH_ONCW",
+                  "HH_ONLW",
+                  "HH_OGXS",
+                  "HH_OSXS",
+                  "HH_PBXN",
+                  "HH_OAXN",
+                  "HH_OBXN",
+                  // The following are added purely for compatibility with the representative
+                  // samples, they have not been confirmed in the agreed spec
+                  // HH
+                  "HH_ONXE",
+                  "HH_ONXW",
+                  "HH_PNLW",
+                  // CE
+                  "CE_OUUE",
+                  "CE_PUUE",
+                  "CE_OBUE",
+                  "CE_PUEW",
+                  "CE_PUUW",
+                  "CE_OUUW",
+                  "CE_OUEW",
+                  "CE_OPEW",
+                  "CE_OPUW",
+                  "CE_OBEW",
+                  "CE_OBUW",
+                  "CE_OKEW"
                 })
           })
     };
