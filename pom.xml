@@ -21,16 +21,16 @@
     <java.version>21</java.version>
   </properties>
 
-<!--  <distributionManagement>-->
-<!--    <snapshotRepository>-->
-<!--      <id>artifact-registry-snapshots</id>-->
-<!--      <url>artifactregistry://europe-west2-maven.pkg.dev/ssdc-rm-ci/rm-snapshots</url>-->
-<!--    </snapshotRepository>-->
-<!--    <repository>-->
-<!--      <id>artifact-registry-releases</id>-->
-<!--      <url>artifactregistry://europe-west2-maven.pkg.dev/ons-ci-rm/rm-releases</url>-->
-<!--    </repository>-->
-<!--  </distributionManagement>-->
+  <distributionManagement>
+    <snapshotRepository>
+      <id>artifact-registry-snapshots</id>
+      <url>artifactregistry://europe-west2-maven.pkg.dev/c31-rm-ci-prod/rm-maven-snapshot</url>
+    </snapshotRepository>
+    <repository>
+      <id>artifact-registry-releases</id>
+      <url>artifactregistry://europe-west2-maven.pkg.dev/c31-rm-ci-prod/rm-maven-release</url>
+    </repository>
+  </distributionManagement>
 
   <build>
     <defaultGoal>clean install</defaultGoal>
