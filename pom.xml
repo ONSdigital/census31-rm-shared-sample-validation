@@ -32,8 +32,26 @@
         <error-prone-core.version>2.28.0</error-prone-core.version>
     </properties>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>artifact-registry-snapshots</id>
+            <url>artifactregistry://europe-west2-maven.pkg.dev/c31-rm-ci-prod/rm-maven-snapshot</url>
+        </snapshotRepository>
+        <repository>
+            <id>artifact-registry-releases</id>
+            <url>artifactregistry://europe-west2-maven.pkg.dev/c31-rm-ci-prod/rm-maven-release</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <defaultGoal>clean install</defaultGoal>
+        <extensions>
+            <extension>
+                <groupId>com.google.cloud.artifactregistry</groupId>
+                <artifactId>artifactregistry-maven-wagon</artifactId>
+                <version>2.2.1</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
