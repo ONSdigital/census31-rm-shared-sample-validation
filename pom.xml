@@ -11,25 +11,24 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.16</version>
+        <version>4.1.1</version>
         <relativePath/>
     </parent>
 
     <properties>
-        <maven.compiler.release>21</maven.compiler.release>
         <java.version>21</java.version>
-
-        <!-- Dependency versions -->
-        <lombok.version>1.18.30</lombok.version>
-        <hypersistence-utils.version>3.15.4</hypersistence-utils.version>
-        <aspectjweaver.version>1.9.24</aspectjweaver.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <hypersistence-utils.version>3.15.5</hypersistence-utils.version>
 
         <!-- Plugin versions -->
-        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
-        <maven-pmd-plugin.version>3.23.0</maven-pmd-plugin.version>
-        <spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
-        <google-java-format.version>1.22.0</google-java-format.version>
-        <error-prone-core.version>2.28.0</error-prone-core.version>
+        <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+        <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
+        <pmd.version>7.26.0</pmd.version>
+        <spotless-maven-plugin.version>3.10.0</spotless-maven-plugin.version>
+        <google-java-format.version>1.36.1</google-java-format.version>
+        <error-prone-core.version>2.50.0</error-prone-core.version>
+        <artifactregistry-maven-wagon.version>2.2.5</artifactregistry-maven-wagon.version>
     </properties>
 
     <distributionManagement>
@@ -49,7 +48,7 @@
             <extension>
                 <groupId>com.google.cloud.artifactregistry</groupId>
                 <artifactId>artifactregistry-maven-wagon</artifactId>
-                <version>2.2.1</version>
+                <version>${artifactregistry-maven-wagon.version}</version>
             </extension>
         </extensions>
         <plugins>
@@ -93,13 +92,34 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- PMD with Java 21 support -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${maven-pmd-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-core</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-java</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-javascript</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.pmd</groupId>
+                        <artifactId>pmd-jsp</artifactId>
+                        <version>${pmd.version}</version>
+                    </dependency>
+                </dependencies>
                 <configuration>
-                    <targetJdk>21</targetJdk>
+                    <targetJdk>${java.version}</targetJdk>
                     <excludeFromFailureFile>exclude-pmd.properties</excludeFromFailureFile>
                     <failurePriority>3</failurePriority>
                     <failOnViolation>true</failOnViolation>
@@ -143,11 +163,13 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <release>${maven.compiler.release}</release>
                     <encoding>UTF-8</encoding>
                     <compilerArgs>
                         <arg>-XDcompilePolicy=simple</arg>
+                        <arg>--should-stop=ifError=FLOW</arg>
+                        <!-- Required by Error Prone 2.44+ on JDK 21 -->
+                        <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
                         <arg>-Xplugin:ErrorProne</arg>
                     </compilerArgs>
                     <annotationProcessorPaths>
@@ -169,35 +191,25 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.hypersistence</groupId>
-            <artifactId>hypersistence-utils-hibernate-63</artifactId>
-            <version>${hypersistence-utils.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectjweaver.version}</version>
         </dependency>
 
         <!-- Test Dependencies below this point -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
