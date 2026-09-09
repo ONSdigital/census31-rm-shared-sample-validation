@@ -3,7 +3,6 @@ package uk.gov.ons.census.common.validation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Optional;
-import org.springframework.util.StringUtils;
 
 public class RegexRule implements Rule {
   private final String expression;
@@ -20,7 +19,7 @@ public class RegexRule implements Rule {
   @Override
   public Optional<String> checkStringValidity(String data) {
     if (!data.matches(expression)) {
-      if (StringUtils.hasText(userFriendlyError)) {
+      if (userFriendlyError != null && !userFriendlyError.isBlank()) {
         return Optional.of(userFriendlyError);
       } else {
         return Optional.of("Value does not match regex expression: " + expression);
