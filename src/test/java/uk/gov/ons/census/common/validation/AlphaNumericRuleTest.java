@@ -23,8 +23,10 @@ public class AlphaNumericRuleTest {
   }
 
   @Test
-  void emptyStringIsValid() {
-    assertEquals(Optional.empty(), rule.checkStringValidity(""));
+  void emptyStringIsInValid() {
+    Optional<String> result = rule.checkStringValidity("");
+    assertTrue(result.isPresent());
+    assertEquals("Value is empty after removing space", result.get());
   }
 
   @Test
