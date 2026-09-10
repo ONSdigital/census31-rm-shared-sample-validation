@@ -12,7 +12,14 @@ public class AlphaNumericRuleTest {
 
   @Test
   void validAlphanumericString() {
-    assertEquals(Optional.empty(), rule.checkStringValidity("ABC123"));
+    assertEquals(Optional.empty(), rule.checkStringValidity("ABC 123"));
+  }
+
+  @Test
+  void notAlphanumericString() {
+    Optional<String> result = rule.checkStringValidity("123 123");
+    assertTrue(result.isPresent());
+    assertEquals("Value must contain both letters and digits", result.get());
   }
 
   @Test

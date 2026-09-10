@@ -9,12 +9,28 @@ public class AlphaNumericRule implements Rule {
   // This rule checks that the string contains only letters and digits.
   @Override
   public Optional<String> checkStringValidity(String data) {
+    // Remove all spaces
+    String cleaned = data.replaceAll("\\s+", "");
+
+    if (cleaned.isEmpty()) {
+      return Optional.of("Value is empty after removing space");
+    }
     // Regex: only A–Z, a–z, 0–9
-    if (data.matches("[A-Za-z0-9]*")) {
-      return Optional.empty();
+    if (!cleaned.matches("[A-Za-z0-9]*")) {
+      return Optional.of("Contains non alphanumeric characters");
     }
 
-    return Optional.of("Contains non alphanumeric characters");
+    // Must contain at least one letter
+    boolean hasLetter = cleaned.matches(".*[A-Za-z].*");
+
+    // Must contain at least one digit
+    boolean hasDigit = cleaned.matches(".*\\d.*");
+
+    if (!hasLetter || !hasDigit) {
+      return Optional.of("Value must contain both letters and digits");
+    }
+
+    return Optional.empty();
   }
 
   // Integers are always numeric, so only check positivity (same semantics as NumericRule)
