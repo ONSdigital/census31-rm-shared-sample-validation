@@ -7,16 +7,28 @@ import java.util.Optional;
 public class LengthRule implements Rule {
 
   private final Integer maxLength;
+  private final Integer minLength;
 
   @JsonCreator
   public LengthRule(@JsonProperty("maxLength") int maxLength) {
     this.maxLength = maxLength;
+    this.minLength = 0;
+  }
+
+  @JsonCreator
+  public LengthRule(
+      @JsonProperty("maxLength") int maxLength, @JsonProperty("minLength") int minLength) {
+    this.maxLength = maxLength;
+    this.minLength = minLength;
   }
 
   @Override
   public Optional<String> checkStringValidity(String data) {
     if (data.length() > maxLength) {
       return Optional.of("Exceeded max length of " + maxLength);
+    }
+    if (data.length() < minLength) {
+      return Optional.of("Does not meet the min length of " + minLength);
     }
 
     return Optional.empty();
@@ -28,10 +40,18 @@ public class LengthRule implements Rule {
       return Optional.of("Exceeded max length of " + maxLength);
     }
 
+    if (String.valueOf(data).length() < minLength) {
+      return Optional.of("Does not meet the min length of " + minLength);
+    }
+
     return Optional.empty();
   }
 
   public Integer getMaxLength() {
     return maxLength;
+  }
+
+  public Integer getMinLength() {
+    return minLength;
   }
 }
