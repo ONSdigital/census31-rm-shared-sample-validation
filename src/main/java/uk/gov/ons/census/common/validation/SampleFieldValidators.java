@@ -1,5 +1,8 @@
 package uk.gov.ons.census.common.validation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public final class SampleFieldValidators {
   private SampleFieldValidators() {}
 
@@ -15,7 +18,9 @@ public final class SampleFieldValidators {
       new ColumnValidator("ADDRESS_LINE2", new Rule[] {new LengthRule(50)}),
       new ColumnValidator("ADDRESS_LINE3", new Rule[] {new LengthRule(50)}),
       new ColumnValidator("TOWN_NAME", new Rule[] {new MandatoryRule(), new LengthRule(30)}),
-      new ColumnValidator("POSTCODE", new Rule[] {new MandatoryRule(), new LengthRule(8)}),
+      new ColumnValidator(
+          "POSTCODE",
+          new Rule[] {new MandatoryRule(), new AlphaNumericRule(), new LengthRule(8, 5)}),
       new ColumnValidator(
           "ADDRESS_TYPE",
           new Rule[] {new MandatoryRule(), new InSetRule(new String[] {"HH", "CE"})}),
@@ -38,13 +43,22 @@ public final class SampleFieldValidators {
           "CE_EXPECTED_CAPACITY", new Rule[] {new NumericRule(), new LengthRule(4)}),
       new ColumnValidator("CE_SECURE", new Rule[] {new MandatoryRule(), new BooleanRule()}),
       new ColumnValidator("PRINT_BATCH", new Rule[] {new NumericRule(), new LengthRule(2)}),
-      new ColumnValidator("LATITUDE", new Rule[] {new MandatoryRule()}),
-      new ColumnValidator("LONGITUDE", new Rule[] {new MandatoryRule()}),
+      new ColumnValidator(
+          "LATITUDE", new Rule[] {new LatitudeLongitudeRule(LatitudeLongitudeRule.Type.LATITUDE)}),
+      new ColumnValidator(
+          "LONGITUDE",
+          new Rule[] {new LatitudeLongitudeRule(LatitudeLongitudeRule.Type.LONGITUDE)}),
       new ColumnValidator("OA", new Rule[] {new MandatoryRule(), new LengthRule(9)}),
       new ColumnValidator("LSOA", new Rule[] {new MandatoryRule(), new LengthRule(9)}),
       new ColumnValidator("MSOA", new Rule[] {new MandatoryRule(), new LengthRule(9)}),
       new ColumnValidator("LAD", new Rule[] {new MandatoryRule(), new LengthRule(9)}),
-      new ColumnValidator("REGION", new Rule[] {new MandatoryRule(), new LengthRule(9)}),
+      new ColumnValidator(
+          "REGION",
+          new Rule[] {
+            new MandatoryRule(),
+            new LengthRule(9),
+            new StartsWithAnyOfRule(new ArrayList<>(Arrays.asList("E", "W", "N", "S")))
+          }),
       new ColumnValidator(
           "HTC_WILLINGNESS",
           new Rule[] {new MandatoryRule(), new InSetRule(new String[] {"1", "2", "3", "4", "5"})}),
@@ -60,9 +74,9 @@ public final class SampleFieldValidators {
             new MandatoryRule(),
             new InSetRule(
                 new String[] {
-                  "HH_PSCE", "HH_PSLE", "HH_PNCE", "HH_PNLE", "HH_OSCE", "HH_OSLE", "HH_ONCE",
-                  "HH_ONLE", "HH_PSCW", "HH_PSLW", "HH_PNCW", "HH_PN", "HH_OSCW", "HH_OSLW",
-                  "HH_ONCW", "HH_ONLW", "HH_OGXS", "HH_OSXS", "HH_PBXN", "HH_OAXN", "HH_OBXN"
+                  "HH_PFE", "HH_OFE", "HH_ONE", "HH_PFW", "HH_OFW", "HH_ONW", "HH_ONS",
+                  "HH_PBNN", "HH_OANN", "HH_OBNN", "CE_FEE", "CE_FUE", "CE_FEW", "CE_FUW",
+                  "CE_XXNES", "CE_LPNUS"
                 })
           })
     };
