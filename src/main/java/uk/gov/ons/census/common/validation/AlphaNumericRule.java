@@ -16,29 +16,9 @@ public class AlphaNumericRule implements Rule {
       return Optional.of("Value is empty after removing space");
     }
     // Regex: only A–Z, a–z, 0–9
-    if (!cleaned.matches("[A-Za-z0-9]*")) {
-      return Optional.of("Contains non alphanumeric characters");
+    if (cleaned.matches("[A-Za-z0-9]*")) {
+      return Optional.empty();
     }
-
-    // Must contain at least one letter
-    boolean hasLetter = cleaned.matches(".*[A-Za-z].*");
-
-    // Must contain at least one digit
-    boolean hasDigit = cleaned.matches(".*\\d.*");
-
-    if (!hasLetter || !hasDigit) {
-      return Optional.of("Value must contain both letters and digits");
-    }
-
-    return Optional.empty();
-  }
-
-  // Integers are always numeric, so only check positivity (same semantics as NumericRule)
-  @Override
-  public Optional<String> checkIntegerValidity(Integer data) {
-    if (data < 0) {
-      return Optional.of("Negative integers are not allowed");
-    }
-    return Optional.empty();
+    return Optional.of("Contains non alphanumeric characters");
   }
 }

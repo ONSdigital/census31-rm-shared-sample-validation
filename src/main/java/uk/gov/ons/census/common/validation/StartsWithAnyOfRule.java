@@ -15,22 +15,13 @@ public class StartsWithAnyOfRule implements Rule {
 
   @Override
   public Optional<String> checkStringValidity(String data) {
-    if (data == null || data.isBlank()) {
-      return Optional.of("Value is null or empty");
-    }
 
     boolean matches = prefixes.stream().anyMatch(data::startsWith);
 
     if (!matches) {
-      return Optional.of(
-          "Value \"" + data + "\" does not start with any of the allowed prefixes: " + prefixes);
+      return Optional.of("Value does not start with any of the allowed prefixes: " + prefixes);
     }
 
     return Optional.empty();
-  }
-
-  @Override
-  public Optional<String> checkIntegerValidity(Integer data) {
-    return Optional.of("Integer values are not allowed for StartsWithAnyOfRule");
   }
 }

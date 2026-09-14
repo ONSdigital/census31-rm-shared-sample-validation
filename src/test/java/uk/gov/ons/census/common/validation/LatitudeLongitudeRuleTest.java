@@ -26,30 +26,21 @@ public class LatitudeLongitudeRuleTest {
 
   @Test
   void malformedDecimal() {
-    Optional<String> result = latRule.checkStringValidity("12..34");
-    assertTrue(result.isPresent());
-    assertTrue(result.get().contains("is not a valid float"));
+    checkValidity(".", "Value is not a valid float");
+    checkValidity("..", "Value is not a valid float");
+    checkValidity(".1", "Malformed decimal value");
+    checkValidity(".1.", "Value is not a valid float");
+    checkValidity("1.1.1.1", "Value is not a valid float");
+    checkValidity("1.", "Malformed decimal value");
+    checkValidity("0.0.", "Value is not a valid float");
+    checkValidity("123", "Malformed decimal value");
   }
 
-  @Test
-  void nonFloatParts() {
-    Optional<String> result = latRule.checkStringValidity("12.ABC");
-    assertTrue(result.isPresent());
-    assertTrue(result.get().contains("is not a valid float"));
-  }
+  void checkValidity(String value, String expectedError) {
+    Optional<String> result = latRule.checkStringValidity(value);
 
-  @Test
-  void nonNumericParts() {
-    Optional<String> result = latRule.checkStringValidity("ABC.3455");
     assertTrue(result.isPresent());
-    assertTrue(result.get().contains("is not a valid float"));
-  }
-
-  @Test
-  void nonDecimal() {
-    Optional<String> result = latRule.checkStringValidity("3455");
-    assertTrue(result.isPresent());
-    assertTrue(result.get().contains("Malformed decimal, Value"));
+    assertEquals(result.get(), expectedError);
   }
 
   @Test
@@ -57,7 +48,7 @@ public class LatitudeLongitudeRuleTest {
     // precision = 10 (integer=2 digits, decimal=8 digits)
     Optional<String> result = latRule.checkStringValidity("12.12345678");
     assertTrue(result.isPresent());
-    assertTrue(result.get().contains("Precision"));
+    assertEquals("Precision exceeds", result.get());
   }
 
   @Test
@@ -65,13 +56,6 @@ public class LatitudeLongitudeRuleTest {
     // scale = 8 (max allowed = 7) precision = 9 (integer=1 digits, decimal=8 digits)
     Optional<String> result = latRule.checkStringValidity("1.12345678");
     assertTrue(result.isPresent());
-    assertTrue(result.get().contains("Scale"));
-  }
-
-  @Test
-  void integerNotAllowed() {
-    Optional<String> result = latRule.checkIntegerValidity(10);
-    assertTrue(result.isPresent());
-    assertEquals("Integer values are not allowed for latitude/longitude", result.get());
+    assertEquals("Scale exceeds", result.get());
   }
 }

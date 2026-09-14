@@ -36,13 +36,6 @@ public class StartsWithAnyOfRuleTest {
   void emptyStringIsInvalid() {
     Optional<String> result = rule.checkStringValidity("");
     assertTrue(result.isPresent());
-    assertEquals("Value is null or empty", result.get());
-  }
-
-  @Test
-  void integerNotAllowed() {
-    Optional<String> result = rule.checkIntegerValidity(10);
-    assertTrue(result.isPresent());
-    assertEquals("Integer values are not allowed for StartsWithAnyOfRule", result.get());
+    assertTrue(result.get().contains("does not start with any of the allowed prefixes"));
   }
 }

@@ -35,13 +35,13 @@ public class LatitudeLongitudeRule implements Rule {
     try {
       Float.parseFloat(value);
     } catch (NumberFormatException ex) {
-      return Optional.of("Value \"" + value + "\" is not a valid float");
+      return Optional.of("Value is not a valid float");
     }
 
     // Must contain exactly one decimal point
     String[] parts = value.split("\\.");
     if (parts.length != 2) {
-      return Optional.of("Malformed decimal, Value = \"" + value + "\"");
+      return Optional.of("Malformed decimal value");
     }
 
     String integer = parts[0];
@@ -52,7 +52,7 @@ public class LatitudeLongitudeRule implements Rule {
       Integer.parseInt(integer.replace("-", ""));
       Integer.parseInt(decimal);
     } catch (NumberFormatException ex) {
-      return Optional.of("Malformed decimal, Value = \"" + value + "\"");
+      return Optional.of("Malformed decimal value");
     }
 
     // Calculate precision & scale
@@ -60,18 +60,13 @@ public class LatitudeLongitudeRule implements Rule {
     int precision = integer.replace("-", "").length() + decimal.length();
 
     if (precision > type.maxPrecision) {
-      return Optional.of("Precision " + precision + " exceeds max of " + type.maxPrecision);
+      return Optional.of("Precision exceeds");
     }
 
     if (scale > type.maxScale) {
-      return Optional.of("Scale " + scale + " exceeds max of " + type.maxScale);
+      return Optional.of("Scale exceeds");
     }
 
     return Optional.empty();
-  }
-
-  @Override
-  public Optional<String> checkIntegerValidity(Integer value) {
-    return Optional.of("Integer values are not allowed for latitude/longitude");
   }
 }

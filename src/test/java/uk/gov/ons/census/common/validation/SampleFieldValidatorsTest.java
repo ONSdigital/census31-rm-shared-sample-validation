@@ -118,13 +118,13 @@ public class SampleFieldValidatorsTest {
             "Column 'POSTCODE' value 'CAA-TD' validation error: Contains non alphanumeric characters");
     assertThat(validationErrors.get(3))
         .isEqualTo(
-            "Column 'LATITUDE' value '1.2.3.4' validation error: Value \"1.2.3.4\" is not a valid float");
+            "Column 'LATITUDE' value '1.2.3.4' validation error: Value is not a valid float");
     assertThat(validationErrors.get(4))
         .isEqualTo(
-            "Column 'LONGITUDE' value '0.0.0.0' validation error: Value \"0.0.0.0\" is not a valid float");
+            "Column 'LONGITUDE' value '0.0.0.0' validation error: Value is not a valid float");
     assertThat(validationErrors.get(5))
         .isEqualTo(
-            "Column 'REGION' value 'XN' validation error: Value \"XN\" does not start with any of the allowed prefixes: [E, W, N, S]");
+            "Column 'REGION' value 'XN' validation error: Value does not start with any of the allowed prefixes: [E, W, N, S]");
     assertThat(validationErrors.get(6))
         .contains("Column 'TREATMENT_CODE' value 'XXX' validation error: Not in set of");
   }
