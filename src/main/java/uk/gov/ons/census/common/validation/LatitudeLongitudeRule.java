@@ -19,7 +19,7 @@ public class LatitudeLongitudeRule implements Rule {
     }
   }
 
-  private final Type type;
+  final Type type;
 
   public LatitudeLongitudeRule(Type type) {
     this.type = type;
@@ -60,11 +60,11 @@ public class LatitudeLongitudeRule implements Rule {
     int precision = integer.replace("-", "").length() + decimal.length();
 
     if (precision > type.maxPrecision) {
-      return Optional.of("Precision exceeds");
+      return Optional.of("Precision exceeds max of " + type.maxPrecision);
     }
 
     if (scale > type.maxScale) {
-      return Optional.of("Scale exceeds");
+      return Optional.of("Scale exceeds max of " + type.maxScale);
     }
 
     return Optional.empty();

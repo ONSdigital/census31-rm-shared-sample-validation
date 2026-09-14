@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class LatitudeLongitudeRuleTest {
 
@@ -24,16 +28,22 @@ public class LatitudeLongitudeRuleTest {
     assertEquals(Optional.empty(), lonRule.checkStringValidity("-3.1883000"));
   }
 
-  @Test
-  void malformedDecimal() {
-    checkValidity(".", "Value is not a valid float");
-    checkValidity("..", "Value is not a valid float");
-    checkValidity(".1", "Malformed decimal value");
-    checkValidity(".1.", "Value is not a valid float");
-    checkValidity("1.1.1.1", "Value is not a valid float");
-    checkValidity("1.", "Malformed decimal value");
-    checkValidity("0.0.", "Value is not a valid float");
-    checkValidity("123", "Malformed decimal value");
+  @ParameterizedTest
+  @MethodSource("malformedDecimalProvider")
+  void malformedDecimalParameterized(String value, String expectedError) {
+    checkValidity(value, expectedError);
+  }
+
+  static Stream<Arguments> malformedDecimalProvider() {
+    return Stream.of(
+        Arguments.of(".", "Value is not a valid float"),
+        Arguments.of("..", "Value is not a valid float"),
+        Arguments.of(".1", "Malformed decimal value"),
+        Arguments.of(".1.", "Value is not a valid float"),
+        Arguments.of("1.1.1.1", "Value is not a valid float"),
+        Arguments.of("1.", "Malformed decimal value"),
+        Arguments.of("0.0.", "Value is not a valid float"),
+        Arguments.of("123", "Malformed decimal value"));
   }
 
   void checkValidity(String value, String expectedError) {
@@ -48,7 +58,7 @@ public class LatitudeLongitudeRuleTest {
     // precision = 10 (integer=2 digits, decimal=8 digits)
     Optional<String> result = latRule.checkStringValidity("12.12345678");
     assertTrue(result.isPresent());
-    assertEquals("Precision exceeds", result.get());
+    assertEquals("Precision exceeds max of " + latRule.type.maxPrecision, result.get());
   }
 
   @Test
@@ -56,6 +66,6 @@ public class LatitudeLongitudeRuleTest {
     // scale = 8 (max allowed = 7) precision = 9 (integer=1 digits, decimal=8 digits)
     Optional<String> result = latRule.checkStringValidity("1.12345678");
     assertTrue(result.isPresent());
-    assertEquals("Scale exceeds", result.get());
+    assertEquals("Scale exceeds max of " + latRule.type.maxScale, result.get());
   }
 }
