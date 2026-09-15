@@ -2,14 +2,13 @@ package uk.gov.ons.census.common.validation;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.util.Optional;
-import org.springframework.util.StringUtils;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class MandatoryRule implements Rule {
 
   @Override
   public Optional<String> checkStringValidity(String data) {
-    if (!StringUtils.hasText(data)) {
+    if (data == null || data.isBlank()) {
       return Optional.of("Mandatory value missing");
     }
 
