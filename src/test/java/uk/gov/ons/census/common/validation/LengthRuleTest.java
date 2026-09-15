@@ -16,8 +16,15 @@ class LengthRuleTest {
 
   @Test
   void checkValidityInvalid() {
-    LengthRule underTest = new LengthRule(5);
+    LengthRule underTest = new LengthRule(5, 0);
     Optional<String> validity = underTest.checkValidity("1234567890");
     assertThat(validity).isPresent().contains("Exceeded max length of 5");
+  }
+
+  @Test
+  void checkValidityInvalid_minLength() {
+    LengthRule underTest = new LengthRule(8, 5);
+    Optional<String> validity = underTest.checkValidity("1234");
+    assertThat(validity).isPresent().contains("Does not meet the min length of 5");
   }
 }
