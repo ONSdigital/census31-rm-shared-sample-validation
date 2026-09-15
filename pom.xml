@@ -29,6 +29,10 @@
         <google-java-format.version>1.36.1</google-java-format.version>
         <error-prone-core.version>2.50.0</error-prone-core.version>
         <artifactregistry-maven-wagon.version>2.2.5</artifactregistry-maven-wagon.version>
+        <jackson-annotations.version>2.21</jackson-annotations.version>
+        <jackson-databind.version>3.1.5</jackson-databind.version>
+        <junit-jupiter.version>6.0.3</junit-jupiter.version>
+        <assertj.version>3.27.6</assertj.version>
     </properties>
 
     <distributionManagement>
@@ -180,9 +184,11 @@
     </build>
 
     <dependencies>
+        <!-- Jackson 3 keeps annotations in the Jackson 2 coordinates; pin explicitly for compatibility. -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-annotations.version}</version>
         </dependency>
 
         <dependency>
@@ -193,13 +199,21 @@
 
         <!-- Test Dependencies below this point -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
