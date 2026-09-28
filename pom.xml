@@ -29,7 +29,7 @@
         <error-prone-core.version>2.50.0</error-prone-core.version>
         <artifactregistry-maven-wagon.version>2.2.5</artifactregistry-maven-wagon.version>
         <jackson-annotations.version>2.21</jackson-annotations.version>
-        <jackson-databind.version>3.1.5</jackson-databind.version>
+        <jackson-databind.version>3.1.6</jackson-databind.version>
         <junit-jupiter.version>6.0.3</junit-jupiter.version>
         <assertj.version>3.27.7</assertj.version>
     </properties>
